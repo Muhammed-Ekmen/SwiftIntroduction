@@ -9,6 +9,9 @@ var age:Int = 22 //integer
 var isStudent:Bool = true //bool
 let school:String = "medipol" // constant variable
 var typeChange:String = "12" // create to type change with if let bloc
+var modCalculate = 10
+
+modCalculate.truncatingremainder(dividingby:2) // take mod oparations by alternative usage
 
 //interpolation with \()
 print("my name is \(firstName)")
