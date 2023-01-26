@@ -83,6 +83,18 @@ while index > 0{
     index -= 1
 }
 
+// While and Repeat Usage
+var numberOne:Int = 0
+
+repeat {
+  print(numberOne)
+  numberOne += 1
+} while numberOne < 10 
+
+print("Exit the Loop")
+
+
+
 //for loop with stride
 
 for k in stride(from: 0, to: 5, by: 1){
