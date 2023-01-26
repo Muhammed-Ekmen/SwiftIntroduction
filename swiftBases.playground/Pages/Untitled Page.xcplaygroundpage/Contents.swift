@@ -51,6 +51,13 @@ for k in 0...10{
     print(k)
 }
 
+//for loop with different usage
+var message =  "Swift"
+
+for k in 1...message.count {
+    print(k)
+}
+
 /*
     for loop with generate list.
     break and continue
