@@ -452,3 +452,14 @@ struct BaseDatas{
 
 print(BaseDatas.password) // it cannot access password variable.
 
+
+
+/*
+XCode First projects:
+
+productName=> you should start with capital letter unlike flutter. I mean, camelCase
+team=> you can select null or your account.
+
+
+
+*/
