@@ -459,6 +459,7 @@ XCode First projects:
 
 productName=> you should start with capital letter unlike flutter. I mean, camelCase
 team=> you can select null or your account.
+Interface=> now, you should select the storyboard instead of swiftUI
 
 
 
