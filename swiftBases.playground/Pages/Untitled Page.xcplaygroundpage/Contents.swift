@@ -188,6 +188,90 @@ enum Countries:String{ //raw values. in swift,developer can add data to each enu
 
 print(Countries.Turkey.rawValue) // you can reach raw value like this.
 
+/*
+ADVANCED ENUM USAGE
+
+- we can use enum for class for type safety.
+- enums can use protocol.
+*/
+protocol Togglable {
+    mutating func toggle()
+}
+
+enum OnOffSwitch: Togglable {
+    case off, on
+    mutating func toggle() {
+        switch self {
+        case .off:
+            self = .on
+        case .on:
+            self = .off
+        }
+    }
+}
+
+
+var lightSwitch = OnOffSwitch.off
+print(lightSwitch)   // swift is off
+lightSwitch.toggle()
+print(lightSwitch)  // now it is on.
+
+// lightSwitch is now equal to .on
+
+//IN ADDITION, enums can keeps some properties like model class. Look at the below.
+enum Student{
+  case preSchool(name:String,age:Int)
+}
+
+var student_one = Student.preSchool(name:"Semih",age:22)
+print(student_one)
+
+//NOTE: if you remember we were creating extention for enum class on Flutter. But here, it is not reqired. enums can keep function. I mean, you don't have to
+//create extention.
+enum CallTools:String{
+  case car,home
+
+  func call()->String{
+    return "The image is \(self.rawValue)"
+  }
+}
+
+// NESTED Enum Usage
+
+enum CallImages{
+  enum Png{
+    case google,flutter
+  }
+  enum Jpg{
+    case apple,facebook
+  }
+}
+
+print(CallImages.Png.google)
+
+// You can change the enum rawValue after that. but you shoudl check the nil situation. In this reason, please use double question mark and give default value.
+enum Cars:String{
+  case ferrari,lamborghini,maserati
+}
+
+var car_one:Cars = Cars.init(rawValue:"lamborghini") ?? Cars.maserati
+print(car_one.rawValue)
+
+/*
+we can assing variable in the enum. when you fill the that value and wants to use it, you shoudl an checking. 
+*/
+enum DataWareHouse{
+  case exaNumber(number:Int)
+}
+
+var numberOne = DataWareHouse.exaNumber(number:10)
+
+print(numberOne)   /// UNCheck and use it. Output is like "exaNumber(number:10)
+
+if case let .exaNumber(value) = numberOne {
+  print("The number is \(value)")          // its output is just "the number is 10"
+}
+
 
 //functions
 /*
@@ -442,6 +526,7 @@ delayedExa()
  private usage
  access levels: private and filePrivate.
  private same as _ underscore from dart.
+structs can usew with protocols.
  filePrivate is same. the only difference is filePriveate priavete for only current file.
 */
 
