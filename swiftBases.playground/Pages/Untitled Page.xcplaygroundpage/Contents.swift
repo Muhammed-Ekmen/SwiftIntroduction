@@ -166,6 +166,35 @@ MathClass(numberOne: 10, numberTwo: 20).total()
 
 //composition is calling a class from class. I mean, classic model structues from API
 
+
+/*
+Computed properties with class. we have an class and there are 2 variable. These are number and doubleNumber. what I want is when the number variable
+change, doubleNumber will change according to number variable. That processing name is computed property. These 2 variable connected each other.
+*/
+struct ComputedExa{
+  var diameter:Int {
+    get{
+      // it runs when the diameter calls.
+      return halfDiameter*2
+    }
+    set{
+      // it runs when the diameter value has changed.
+      halfDiameter = newValue / 2
+    }
+  }
+  var halfDiameter:Int = 10
+}
+
+
+var example = ComputedExa()
+example.diameter = 50
+print(example.diameter)
+print(example.halfDiameter)
+
+
+
+
+
 /*
  enum usage
  simple usage is Cars.
@@ -349,6 +378,109 @@ class Student:Person{
 
 Student(name:"semih",age:22,studentId: 123).intro()
 
+/*
+Convenience init usage. Actually that is default object creater, think about the any class and its 2 required parameters with init.
+if you create an object and do not enter related values, you will encounter the error about the required parameters.(parameters are not nullable).
+in here, we can use convenience init. it avaible only class not include the structs. So, we can set up default value. Just look at the below codes.
+*/
+
+class ConvenienceInitExa{
+  var name:String
+  var age:Int
+
+  init(name:String,age:Int){
+    self.name = name
+    self.age = age
+  }
+  convenience init(){                     // That is our default object.
+    self.init(name:"Unknown",age:00)
+  }
+  func getInfo(){
+    print("Name : \(self.name) Age: \(self.age)")
+  }
+}
+
+
+var userOne:ConvenienceInitExa = ConvenienceInitExa()
+userOne.getInfo()    // when  you calls, you will see name unknown and age is double zero.
+
+
+/*
+property observers provide intervention when variable assigned before and after. it would be very usefull. we can do thanks to 2 functions.
+These are didSet and willSet. as you can see, I think you can understand which one what are doing but I guess didSet is more usefull. Becasuse
+it include old and newvalue.
+*/
+
+
+
+struct PropertyObserverExa{
+  var number:Int {
+    willSet(newValue){
+      print("new Value is \(newValue)")
+    }
+    didSet(oldValue){
+      print("old value is \(oldValue) new value \(number)")   // you can reach previous value with oldValue and newValue is alredy current number.
+    }
+  }
+
+  init(number:Int){
+    self.number = number
+  }
+}
+
+var exa:PropertyObserverExa = PropertyObserverExa(number:12)
+exa.number = 24
+
+
+/*
+FINAL and class 
+think about an class. we supposed that class include 2 variable static and class tag. And what we want is use inheritance and encounter static value 
+override problem.
+Summary is if we want the static value inheritance, we should use class tag instead of the static.
+*/
+
+// What is the difference between. override.
+
+class Trial{
+  static var name:String = "Semih"    // that is static variable example
+  class func call(){                  // we have seen new but that is kind of static usage. we can reach call function like static.
+    print("is it work?")
+  }
+}
+
+// but we want inherinca, we cannot inherit name variable because of static tag.
+class TrialTwo:Trial{
+  //override var name:String = "Muhammed"        // WE CANNOT USE
+  override class func call(){                 
+    print("override is it work?")
+  }
+}
+
+print("name is \(Trial.name)")
+Trial.call()
+TrialTwo.call()
+
+
+/*
+DEINIT USAGE
+
+what is that? basically it's similar to dispose method. when any object has deleted, that function runs. But you can ask the which situatioins does 
+object remove? 2 type. These are assing nil value and outside the scope from stream. In this example, we have assinged the nil value. So, object has removed.
+*/
+
+class DeInitExa{
+  init(){
+    print("An Object has created")
+  }
+
+  deinit{
+    print("The Object has deleted")
+  }
+}
+
+var exaOne:DeInitExa? = DeInitExa()    // when we create the object, init function has run.
+exaOne = nil                           //as we has writted at the above, nil value assigned and deinit function has run.
+
 
 //Polymorphsim
 
@@ -422,7 +554,7 @@ GUARD
  it is kind of optional binding (if let).
  fi you remember the if let usage, we have learned that we can use it for nil and type changing.Also guard can.
  Guard only focus negative circumstances. at the below, there are a few example for if let and guard usage.
- Guard should use within any fucntion and it must throw or retunr something.
+ Guard should use within any fucntion and it must throw or return something.
  */
 
 var brand:String?  // nil value for guard examples
@@ -523,8 +655,15 @@ delayedExa()
 
 
 /*
- private usage
- access levels: private and filePrivate.
+ ACCESS LEVES
+-private
+-filePrivate
+-internal(default)
+-public 
+-open
+NOTE: we can use underscore with private values. That is not obligation but that is developer terminology.
+Most of time, private and filePrivate using. Internal is already default. Public and open are the most accessbility levels. They can use when working
+on library.
  private same as _ underscore from dart.
 structs can usew with protocols.
  filePrivate is same. the only difference is filePriveate priavete for only current file.
