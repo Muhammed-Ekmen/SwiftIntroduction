@@ -191,7 +191,55 @@ example.diameter = 50
 print(example.diameter)
 print(example.halfDiameter)
 
+/*
+PROTOCOL USAGE
 
+weh vae alredy known protocol but what I want show you is optional parameter. You know, we have learned that when we have inheritanced the protocol,
+we gotta use all theri supper class parameters. Now, we will see the optioanl usage so we don't have to use all of them.
+*/
+ 
+@objc protocol Person{                //we gotta use the @objc because of swift. it still conntected objective-c
+  var name:String {get set}
+  @objc optional var age:Int {get set}       // we should use again objc tag and add the optinal tag.
+}
+
+class Students:Person{             /// From here on,we don't have to use age parameter.
+  var name:String = "Semih"
+}
+
+print(Students().name)
+
+/*
+Protocol and Delegate usage. mind is very simple. connect the strucytures. I Have written onthe Dog.
+*/ 
+protocol Duty{                             // that is our abstarct class. there is an command function.
+  func command(command:String)
+}
+
+class Doberman:Duty{                        /// Doberman class and it has inheritanced from Duty
+  func command(command:String){
+    print("Doberman// GET READY TO \(command)")
+  }
+}
+
+class Rottweiller:Duty{                               // similar to Doberman
+  func command(command:String){
+    print("Rottweiller// GET READY TO \(command)")
+  }
+}
+
+class Doctor{                                // that is Center class that connect the Doberman and Rottbeiller. It has 2 delegate.
+  var dobermanDelegate:Duty?
+  var rottweillerDelegate:Duty?
+}
+
+var doctor:Doctor = Doctor()    // create a base instance.
+var rott = Rottweiller()       // created a Rott instance
+var doberman = Doberman()   // created doberman instance.
+doctor.dobermanDelegate = doberman        // we have delegated navy delegate to base_one.,
+doctor.rottweillerDelegate = rott  // similar to above
+doctor.dobermanDelegate?.command(command:"Stand Up")   // we can use commmand function on the base_one instance. I didnot understand to much, in this reason 
+doctor.rottweillerDelegate?.command(command: "Catch it")  // we should revise and check the swift 
 
 
 
