@@ -725,6 +725,109 @@ struct BaseDatas{
 print(BaseDatas.password) // it cannot access password variable.
 
 
+/*
+Generic Usage
+
+Generic is creating general structures for easy usage. So, developer can revise code lines more easy. Let's look at the below example. We have an
+function that take 2 parameter and change them. it can be integer or double. first step, we have craeted 2 function integer and obuel but when we wanted
+go on only one function, we have need to use generic types. on the Flutter, T usage :)
+*/
+
+
+func swapInteger(numberOne: inout Int,numberTwo: inout Int){      //that function takes 2 parameters and change them, you can see the inout tag,
+  (numberOne,numberTwo) = (numberTwo,numberOne)                   //this tag provide us change the datas, and when we use the inout parameter,we should use &
+}
+
+
+var numOne:Int = 10                    // we have 4 variables that half integer half double.
+var numTwo:Int = 20
+var numThree:Double = 2.41
+var numFour:Double = 7.26
+
+print("numberOne is \(numOne) numberTwo is \(numTwo)")    // checking first values.
+swapInteger(numberOne:&numOne,numberTwo:&numTwo)           // call method and change them
+print("numberOne is \(numOne) numberTwo is \(numTwo)")      // check did they change? Yes, they did but when we wants to use numThree and numFour, we 
+                                                            // will encounter the a problem. The problem comes because of double type. Function has written for integer types.  
+
+func genericSwap<T>(valueOne: inout T,valueTwo: inout T){   // that is generic usage. Whatever type comes, there is no matter, it will work.
+  (valueOne,valueTwo) = (valueTwo,valueOne)
+}
+
+//at the below, we have used genericSwap function for both integer and double variables.
+print("first value \(numThree) second value \(numFour)")             
+genericSwap(valueOne:&numThree,valueTwo:&numFour)
+print("first value \(numThree) second value \(numFour)")
+print("numberOne is \(numOne) numberTwo is \(numTwo)")
+genericSwap(valueOne:&numOne,valueTwo:&numTwo)
+print("numberOne is \(numOne) numberTwo is \(numTwo)")
+
+
+//Continue Generic Usage for Type Safety. 
+
+func swapValues<T : Numeric> (valueOne: inout T,valueTwo: inout T){           //we have assinged type to T. So, function type only will accept the interger,double,float etc.
+  (valueOne,valueTwo) = (valueTwo,valueOne)
+}
+
+var numOne:Int = 10
+var numTwo:Int = 20
+var messageOne:String = "Open"
+var messageTwo:String = "Door"
+
+swapValues(valueOne:&numOne,valueTwo:&numTwo) 
+swapValues(valueOne:&messageOne,valueTwo:&messageTwo)  // when you wants the use string values with funtion, you will encounter the error.
+
+
+
+//Generic Type Usage With Equetable
+
+func isEquel<T:Equatable>(val_one: T,val_two: T)->Bool{
+        
+  print(type(of: T.self))  // we can learn what is the type like that. Also, we can check certain type processing with if else block.For example, if tpye is string bla bla bla...
+    
+  if val_one == val_two{
+    return true
+  }else{
+    return false
+  }
+}
+
+var result:Bool = isEquel(val_one:21,val_two:20)
+print(result)
+
+// Generic type usage with Comparable
+
+  func findBiggerOne<T:Comparable>(val_one:T,val_two:T)->T{
+  if val_one > val_two {
+    return val_one
+  }else{
+    return val_two
+  }
+}
+
+var numberOne:Int = 10
+var numberTwo:Int = 20
+var biggerOne:Int = findBiggerOne(val_one:10,val_two:20)
+print(biggerOne)
+
+/*
+Generic Protocols. That is amazing. think about it, when we new on flutter, we have learned the REST api usage. at here, I was tring to create one abstarct clas for all
+serices. In the swift language, we will do it. There is an protocl class and we will wait type.
+*/
+
+protocol Person{
+  var name:String {get set}
+  associatedtype type    // that is any type. So, we can use it other parts
+  var age:type {get set}   // for example,we have used expecting type.
+}
+
+class Teachers:Person{
+  typealias type = Int      // we have assinged the type.
+  var name:String = "Semih"
+  var age = 22                // When we wants to assing double value, it will throw error.
+}
+
+
+
 
 /*
 XCode First projects:
