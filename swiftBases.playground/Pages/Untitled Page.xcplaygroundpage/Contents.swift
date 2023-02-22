@@ -121,6 +121,70 @@ emptyList.isEmpty // check if it's empty
 emptyList.remove(at: 0) //remove according to certain index
 var newList:[String] = listByRange.map({String($0)}) // as you known from flutter, map usage.
 
+// Examine Map structures in detail.
+
+let numbers:[Int] = [1,2,3,4]    // we have a list for map usage.
+
+var doubleNumbers:[Int] = numbers.map {            // we have created doubleNumber list from number and map. use 2 bracket and assing name of every list item, we have said that number
+    number in
+       return number*2  
+               }
+
+print(doubleNumbers)     // check doubleNumbers list
+
+
+func getDouble(_ number:Int)->Int{          // other usage is send only function into map.
+  return number * 2
+}
+
+var exaList:[Int] = numbers.map(getDouble)      // we have just sent the getDouble function.
+
+print("exaList \(exaList)")
+
+
+var movies:[String:Int] = [            // we have created a dictionary for use with map.
+  "Transformers":2007,
+  "Iron Man":2008,
+  "Avengers":2012
+]
+
+var movieNames:[String] = movies.map {
+  (key,value) in                                      //MOst of things are similar to List(Arrays :))
+  return key.uppercased()
+}
+
+print("movie names \(movieNames)")
+
+
+//CompactMap Usage
+let exaList:[Int] = [1,2,3,4,5] 
+
+var evenNumbers:[Int] = exaList.compactMap{               // Compact map can use for filtering
+  number in 
+  if number % 2 == 0{
+    return number
+  }else{
+    return nil
+  }
+}
+
+print(evenNumbers)
+
+//ForEach and recude usage
+let exaList:[Int] = [1,2,3,4,5]
+var total:Int = 0
+exaList.forEach {total += $0}       //ForEach you must remember from other languages.
+
+print(total)
+
+
+let numbers = [1, 2, 3, 4]
+let numberSum = numbers.reduce(0, { x, y in       //reduce is alternative of forEach. The difference is you must enter first init value
+    return x + y                                  // is 0.
+})
+print(numberSum)
+
+
 //dictionary
 var manuelDict:[String:Int] = ["semih":22,"mustafa":51]
 var dictByTwoList:[String:Int] = Dictionary(uniqueKeysWithValues: zip(normalList, listByRange))
